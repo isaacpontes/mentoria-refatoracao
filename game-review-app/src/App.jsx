@@ -1,21 +1,21 @@
-import GameList from "./GameList";
-import AddGame from "./AddGame";
-import { useState } from "react";
+import GameList from "./components/GameList";
+import AddGame from "./components/AddGame";
+import { GamesContextProvider } from "./contexts/GamesContext";
 
 const App = () => {
-  const [games, setGames] = useState([]);
-
   return (
     <main className="container mt-4">
       <h1 className="text-center mb-4">Game Review App</h1>
-      <div className="row mb-5">
-        <div className="col col-12 col-md-6 col-xl-4">
-          <AddGame setGames={setGames} />
+      <GamesContextProvider>
+        <div className="row mb-5">
+          <div className="col col-12 col-md-6 col-xl-4">
+            <AddGame />
+          </div>
+          <div className="col col-12 col-md-6 col-xl-8">
+            <GameList />
+          </div>
         </div>
-        <div className="col col-12 col-md-6 col-xl-8">
-          <GameList games={games} setGames={setGames} />
-        </div>
-      </div>
+      </GamesContextProvider>
     </main>
   );
 };

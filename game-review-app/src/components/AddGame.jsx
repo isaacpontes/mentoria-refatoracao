@@ -1,17 +1,17 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
-import axios from "axios";
+import { useContext, useState } from "react";
+import { GamesContext } from "../contexts/GamesContext";
 
-const AddGame = ({ setGames }) => {
+const AddGame = () => {
   const [title, setTitle] = useState("");
   const [imageUrl, setImageUrl] = useState("");
+  const { createGame } = useContext(GamesContext);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
-      const response = await axios.post("http://localhost:5000/api/games", { title, imageUrl });
-      setGames((prev) => [...prev, response.data])
+      await createGame({ title, imageUrl });
       setTitle("");
       setImageUrl("");
     } catch (error) {
@@ -50,7 +50,6 @@ const AddGame = ({ setGames }) => {
                 alt="image preview"
                 className="img-fluid img-thumbnail d-block mx-auto"
               />
-
             </div>
           )}
         </div>
